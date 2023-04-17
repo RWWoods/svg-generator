@@ -2,6 +2,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const jest = require('jest');
 const maxLengthInput = require('inquirer-maxlength-input-prompt')
+const shapes = require('./lib/shapes');
 
 
 
@@ -17,19 +18,20 @@ inquirer
         {
             type: 'input',
             message: 'What text color would you like?',
-            name: 'txtcolor',
+            name: 'textcolor',
+        },
+        {
+            type: 'list',
+            message: 'Which of the following shapes would your like to use?',
+            name: 'shape',
+            choices: ['circle', 'square', 'triangle'],
         },
         {
             type: 'input',
             message: 'What color is your shape?',
             name: 'shapecolor',
         },
-        {
-            type: 'list',
-            message: 'What license are you using?',
-            name: 'shape',
-            choices: ['circle', 'square', 'triangle'],
-        },
+
         
     ])
     .then((response) => {
@@ -45,6 +47,16 @@ function generateSvg(fileName, data) {
 }
 
 function generateLogo(data) {
-    return `${data.text} ${data.shape} ${data.txtcolor} ${data.shape}`
-    
+    if (data.shape === 'circle') {
+        let drawShape = new circle(data.text, data.textcolor, data.shape, data.shapecolor)
+        drawShape = drawShape.render()
+        
+    } else if (data.shape === 'triangle') {
+        let drawShape = new triangle(data.text, data.textcolor, data.shape, data.shapecolor)
+        drawShape = drawShape.render()
+    } else if (data.shape === 'square') {
+        let drawShape = new square(data.text, data.textcolor, data.shape, data.shapecolor)
+        drawShape = drawShape.render()
+    }
+    return drawShape;
 }
