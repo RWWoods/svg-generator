@@ -7,10 +7,11 @@ const generateLogo = require('./shapes.js')
 
 function init() {
     const questions = [];
+    inquirer.registerPrompt('maxlength-input', maxLengthInput);
     inquirer
         .prompt([
             {
-                type: 'input',
+                type: 'maxlength-input',
                 name: 'text',
                 message: 'What three letters would you like to use?',
                 maxLength: 3,
