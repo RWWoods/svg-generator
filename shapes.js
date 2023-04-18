@@ -14,7 +14,7 @@ class circle extends Shape {
 
     }
     render() {
-        return '<circle cx="25" cy="75" r="20" stroke="red" fill="transparent"/>'
+        return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"<circle cx"150" cy"100" r="80" fill="${this.shapecolor}" /> <text x="150" y="125" font-size="60" text-anchor="middle" fill="${this.textcolor}">${this.text}</text> </svg>`
     }
 }
 
@@ -23,13 +23,13 @@ class circle extends Shape {
 class triangle extends Shape {
     constructor(text, textcolor, shape, shapecolor) {
         super(text, textcolor, shape, shapecolor);
-        
+
     }
-    
+
     render() {
-        return '<polygon points="150, 18 244, 182 56, 182" fill="blue" />'
+        return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"<polygon points="70,180 150,20 230,180" fill="${shapecolor}" /> <text x="150" y="125" font-size="60" text-anchor="middle" fill="${textcolor}">${text}</text> </svg>`
     }
-    
+
 }
 
 class square extends Shape {
@@ -41,12 +41,19 @@ class square extends Shape {
         return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg"<rect width="200" height="200" fill="${this.shapecolor}" /> <text x="150" y="125" font-size="60" text-anchor="middle" fill="${this.textcolor}">${data.text}</text> </svg>`
     }
 }
+function generateLogo(data) {
+    if (data.shape === 'circle') {
+        return new circle(data.text, data.textcolor, data.shape, data.shapecolor)
+
+    } else if (data.shape === 'triangle') {
+        return new triangle(data.text, data.textcolor, data.shape, data.shapecolor)
+
+    } else if (data.shape === 'square') {
+        return new square(data.text, data.textcolor, data.shape, data.shapecolor)
+    }
+
+}
 
 
-// function init() {
 
-// }
-
-module.exports = {
-    Shape, circle, triangle, square
-};
+module.exports = generateLogo;
